@@ -2,7 +2,7 @@ const report = require("multiple-cucumber-html-reporter");
 
 report.generate({
     jsonDir: "test-results",
-    reportPath: "test-results",
+    reportPath: "test-results/reports/",
     reportName: "Playwright cucumber report for saucedemo website",
     metadata: {
         browser: {
