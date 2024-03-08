@@ -1,10 +1,13 @@
 import {setDefaultTimeout, Then} from "@cucumber/cucumber";
-import {expect} from "@playwright/test";
 import {fixture} from "../hooks/fixture";
+import DashboardPage from "../../pages/dashboardPage";
 
 setDefaultTimeout(2 * 120000);
+
+let dashboardPage: DashboardPage;
+
 Then(/^user can access the dashboard$/, async () => {
-    await fixture.page.waitForLoadState();
-    await expect(fixture.page.locator('#shopping_cart_container a')).toBeVisible();
+    dashboardPage = new DashboardPage(fixture.page);
+    await dashboardPage.shoppingCartIconToBeDisplayed()
     fixture.logger.info("valid user can access the dashboard");
 });

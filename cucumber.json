@@ -35,7 +35,6 @@
       "ts-node/register"
     ],
     "format": [
-      "progress-bar",
       "html:test-results/reports/cucumber-report.html",
       "json:test-results/reports/cucumber-report.json",
       "rerun:@rerun.txt"

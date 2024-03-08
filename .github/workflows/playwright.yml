@@ -24,4 +24,4 @@ jobs:
       with:
         name: Report
         path: test-results
-        retention-days: 5
+        retention-days: 2

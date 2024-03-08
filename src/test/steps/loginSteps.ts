@@ -1,24 +1,30 @@
 import {Given, setDefaultTimeout, Then, When} from "@cucumber/cucumber";
 import {expect} from "@playwright/test";
 import {fixture} from "../hooks/fixture";
+import LoginPage from "../../pages/loginPage";
+import Assert from "../../helper/wrapper/assert";
 
 setDefaultTimeout(2 * 120000);
 
+let loginPage: LoginPage;
+let assert: Assert;
+
 Given(/^user navigates to saucedemo website$/, async () => {
-    await fixture.page.goto(process.env.BASEURL);
-    await fixture.page.waitForLoadState();
+    loginPage = new LoginPage(fixture.page);
+    assert = new Assert(fixture.page);
+    await loginPage.navigateToLoginPage();
 });
 
 When(/^user enters login credentials "([^"]*)" and "([^"]*)"$/, async (username, password) => {
-    await fixture.page.locator('[data-test="username"]').fill(username);
-    await fixture.page.locator('[data-test="password"]').fill(password);
+    await loginPage.enterCredentials(username, password);
 });
+
 When(/^clicks on login button$/, async () => {
-    await fixture.page.locator('[data-test="login-button"]').click();
+    await loginPage.clickLogin();
 });
 
 
 Then(/^user gets a login error message$/, async () => {
-    await expect(fixture.page.locator('[data-test="error"]')).toContainText('Epic sadface: Username and password do not match any user in this service');
+    await expect(loginPage.errMessage).toContainText('Epic sadface: Username and password do not match any user in this service');
     fixture.logger.info("invalid user gets a error message");
 });
