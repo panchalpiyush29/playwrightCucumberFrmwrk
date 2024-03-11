@@ -15,7 +15,7 @@ export default class LoginPage {
 
     async navigateToLoginPage() {
         await fixture.page.goto(process.env.BASEURL);
-        await fixture.page.waitForLoadState();
+        await fixture.page.waitForLoadState("load");
     }
 
     async enterCredentials(username: string, password: string) {

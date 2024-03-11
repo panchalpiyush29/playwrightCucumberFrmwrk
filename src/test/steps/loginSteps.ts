@@ -2,16 +2,11 @@ import {Given, setDefaultTimeout, Then, When} from "@cucumber/cucumber";
 import {expect} from "@playwright/test";
 import {fixture} from "../hooks/fixture";
 import LoginPage from "../../pages/loginPage";
-import Assert from "../../helper/wrapper/assert";
 
 setDefaultTimeout(2 * 120000);
-
 let loginPage: LoginPage;
-let assert: Assert;
-
 Given(/^user navigates to saucedemo website$/, async () => {
     loginPage = new LoginPage(fixture.page);
-    assert = new Assert(fixture.page);
     await loginPage.navigateToLoginPage();
 });
 
@@ -22,7 +17,6 @@ When(/^user enters login credentials "([^"]*)" and "([^"]*)"$/, async (username,
 When(/^clicks on login button$/, async () => {
     await loginPage.clickLogin();
 });
-
 
 Then(/^user gets a login error message$/, async () => {
     await expect(loginPage.errMessage).toContainText('Epic sadface: Username and password do not match any user in this service');

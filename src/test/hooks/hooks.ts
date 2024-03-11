@@ -17,10 +17,19 @@ BeforeAll(async function () {
 Before(async function ({pickle}) {
     const scenarioName = pickle.name + pickle.id;
     context = await browser.newContext({
+        //storageState: "src/helper/auth/standard-user.json",
         recordVideo: {
             dir: "test-results/videos",
         }
     });
+
+    //code to generate trace
+    await context.tracing.start({
+        name: scenarioName,
+        title: pickle.name,
+        sources: true,
+        screenshots: true, snapshots: true
+    })
     fixture.page = await context.newPage();
     fixture.logger = createLogger(options(scenarioName));
 });
@@ -28,11 +37,14 @@ Before(async function ({pickle}) {
 After(async function ({pickle, result}) {
     let videoPath: string;
     let img: Buffer;
+    const path = `./test-results/trace/${pickle.id}.zip`;
     console.log(pickle.name, "--->", result?.status);
     if (result?.status == Status.FAILED) {
         img = await fixture.page.screenshot({path: `./test-results/screenshots/${pickle.name}.png`, type: "png"});
         videoPath = await fixture.page.video().path();
     }
+
+    await context.tracing.stop({path: path});
     await fixture.page.close();
     await context.close();
 
