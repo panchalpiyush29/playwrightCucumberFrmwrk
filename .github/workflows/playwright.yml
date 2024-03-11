@@ -8,20 +8,20 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.42.1-jammy
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: lts/*
-    - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-    - name: Run Cucumber tests
-      run: npm test
-    - uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: Report
-        path: test-results
-        retention-days: 2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - name: Install dependencies
+        run: npm ci
+      - name: Run Cucumber tests
+        run: npm test
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Report
+          path: test-results
+          retention-days: 2
