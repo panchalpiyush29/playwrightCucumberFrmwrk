@@ -1,0 +1,22 @@
+import {Given, setDefaultTimeout, Then, When} from "@cucumber/cucumber";
+import {fixture} from "../hooks/fixture";
+import CheckoutPage from "../../pages/checkoutPage";
+
+setDefaultTimeout(2 * 120000);
+let checkoutPage: CheckoutPage;
+Given(/^I enter checkout information$/, async () => {
+    checkoutPage = new CheckoutPage(fixture.page);
+    await fixture.page.waitForLoadState();
+    await checkoutPage.enterYourInformation();
+    await checkoutPage.clickContinueButton();
+});
+
+When(/^I submit my order$/, async () => {
+    //checkoutPage = new CheckoutPage(fixture.page);
+    await checkoutPage.clickFinish();
+});
+
+Then(/^I can see the success page$/, async () => {
+    //checkoutPage = new CheckoutPage(fixture.page);
+    await checkoutPage.verifySuccessMessage();
+});
