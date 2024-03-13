@@ -1,4 +1,6 @@
 name: Playwright Tests
+env:
+  HOME: /root
 on:
   push:
     branches: [ main, master ]
