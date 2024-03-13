@@ -20,3 +20,9 @@ Then(/^I can see the success page$/, async () => {
     //checkoutPage = new CheckoutPage(fixture.page);
     await checkoutPage.verifySuccessMessage();
 });
+
+When(/^I submit my order after verifying the "([^"]*)" and its "([^"]*)"$/, async function (product, price) {
+    //checkoutPage = new CheckoutPage(fixture.page);
+    await checkoutPage.verifyProductAndPrice(product, price);
+    await checkoutPage.clickFinish();
+});

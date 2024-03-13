@@ -13,7 +13,7 @@ export default class CheckoutPage {
     lastName: Locator = fixture.page.locator('[data-test="lastName"]');
     postalCode: Locator = fixture.page.locator('[data-test="postalCode"]');
     continueButton: Locator = fixture.page.locator('[data-test="continue"]');
-    productName: Locator = fixture.page.getByRole('link', {name: 'Sauce Labs Backpack'});
+    productName: Locator = fixture.page.locator('.inventory_item_name');
     finishButton: Locator = fixture.page.locator('[data-test="finish"]');
 
     async enterYourInformation() {
@@ -27,14 +27,17 @@ export default class CheckoutPage {
     }
 
     async clickFinish() {
-        expect(await this.productName.isVisible()).toBeTruthy();
-        expect(fixture.page.getByText('$29.99')).toBeTruthy();
         await this.finishButton.click();
     }
 
     async verifySuccessMessage() {
         await fixture.page.waitForLoadState();
         expect(fixture.page.getByText('Thank you for your order!')).toBeTruthy();
+    }
+
+    async verifyProductAndPrice(product: string, price: string) {
+        await expect(this.productName).toContainText(product);
+        expect(fixture.page.getByText(price)).toBeTruthy();
     }
 }
 

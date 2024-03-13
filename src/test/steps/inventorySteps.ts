@@ -4,16 +4,18 @@ import InventoryPage from "../../pages/inventoryPage";
 
 setDefaultTimeout(2 * 120000);
 let inventoryPage: InventoryPage;
-Given(/^I choose to buy a product$/, async () => {
-    inventoryPage = new InventoryPage(fixture.page);
-    await inventoryPage.shoppingCartIconToBeDisplayed();
-    await inventoryPage.addToCart();
-    await inventoryPage.clickShoppingCartLink();
-    await inventoryPage.verifyProductDetails();
-    await inventoryPage.clickCheckoutButton();
-});
 
 Then(/^user can access the dashboard$/, async () => {
     inventoryPage = new InventoryPage(fixture.page);
     await inventoryPage.shoppingCartIconToBeDisplayed();
+});
+
+
+Given(/^I choose to buy a "([^"]*)" after reviewing the "([^"]*)"$/, async function (product, price) {
+    inventoryPage = new InventoryPage(fixture.page);
+    await inventoryPage.shoppingCartIconToBeDisplayed();
+    await inventoryPage.addToCart(product);
+    await inventoryPage.clickShoppingCartLink();
+    await inventoryPage.verifyProductDetails(product,price);
+    await inventoryPage.clickCheckoutButton();
 });
