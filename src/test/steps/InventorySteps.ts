@@ -1,6 +1,6 @@
 import {Given, setDefaultTimeout, Then} from "@cucumber/cucumber";
-import {fixture} from "../hooks/fixture";
-import InventoryPage from "../../pages/inventoryPage";
+import {fixture} from "../hooks/Fixture";
+import InventoryPage from "../../pages/InventoryPage";
 
 setDefaultTimeout(2 * 120000);
 let inventoryPage: InventoryPage;

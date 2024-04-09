@@ -1,5 +1,5 @@
 import {Locator, Page} from "@playwright/test";
-import {fixture} from "../test/hooks/fixture";
+import {fixture} from "../test/hooks/Fixture";
 import {setDefaultTimeout} from "@cucumber/cucumber";
 
 setDefaultTimeout(2 * 120000);

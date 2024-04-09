@@ -1,10 +1,10 @@
 import {After, AfterAll, Before, BeforeAll, Status} from "@cucumber/cucumber";
 import {APIRequestContext, Browser, BrowserContext, request} from "@playwright/test";
-import {fixture} from "./fixture";
+import {fixture} from "./Fixture";
 import {invokeBrowser} from "../../helper/browsers/browserManager";
 import {getEnv} from "../../helper/env/env";
 import {createLogger} from "winston";
-import {options} from "../../helper/util/logger";
+import {options} from "../../helper/util/Logger";
 
 let browser: Browser
 let browserContext: BrowserContext;
@@ -16,21 +16,14 @@ BeforeAll(async function () {
 });
 
 Before(async function ({pickle}) {
-
-    apiContext = await request.newContext({
-        baseURL: process.env.BASE_URL_API
-    });
-
     const scenarioName = pickle.name + pickle.id;
-    browserContext = await browser.newContext({
-        recordVideo: {
-            dir: "test-results/videos",
-        },
-    });
 
-    fixture.page = await browserContext.newPage();
-    fixture.api = apiContext;
-    fixture.logger = createLogger(options(scenarioName));
+    await setApiProperties();
+    await setApiDetails(scenarioName);
+    //fixture.api = apiContext;
+
+    await setBrowserProperties();
+    await setBrowserPageDetails(scenarioName);
 });
 
 After(async function ({pickle, result}) {
@@ -54,3 +47,31 @@ After(async function ({pickle, result}) {
 AfterAll(async function () {
     await browser.close();
 });
+
+async function setApiProperties() {
+    apiContext = await request.newContext({
+        baseURL: process.env.BASE_URL_API
+    });
+}
+
+async function setApiDetails(scenarioName: string) {
+    fixture.api = apiContext;
+    fixture.logger = createLogger(options(scenarioName));
+}
+
+async function setBrowserProperties() {
+    browserContext = await browser.newContext({
+        userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36",
+        ignoreHTTPSErrors: true,
+        permissions: ['geolocation'],
+        recordVideo: {
+            dir: "test-results/videos",
+        }
+    });
+}
+
+async function setBrowserPageDetails(scenarioName: string) {
+    fixture.page = await browserContext.newPage();
+    await fixture.page.setViewportSize({"width": 2560, "height": 1600});
+    fixture.logger = createLogger(options(scenarioName));
+}

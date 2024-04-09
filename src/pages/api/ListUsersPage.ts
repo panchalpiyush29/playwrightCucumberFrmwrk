@@ -1,5 +1,5 @@
-import {fixture} from "../../test/hooks/fixture";
-import apiEndpoints from "../../helper/util/apiEndpoints";
+import {fixture} from "../../test/hooks/Fixture";
+import apiEndpoints from "../../helper/util/ApiEndpoints";
 import {expect} from "@playwright/test";
 
 export default class ListUsersPage {

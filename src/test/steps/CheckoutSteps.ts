@@ -1,6 +1,6 @@
 import {Given, setDefaultTimeout, Then, When} from "@cucumber/cucumber";
-import {fixture} from "../hooks/fixture";
-import CheckoutPage from "../../pages/checkoutPage";
+import {fixture} from "../hooks/Fixture";
+import CheckoutPage from "../../pages/CheckoutPage";
 
 setDefaultTimeout(2 * 120000);
 let checkoutPage: CheckoutPage;

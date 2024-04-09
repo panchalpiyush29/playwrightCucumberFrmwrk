@@ -1,6 +1,6 @@
 import {expect, Locator, Page} from "@playwright/test";
 import {setDefaultTimeout} from "@cucumber/cucumber";
-import {fixture} from "../test/hooks/fixture";
+import {fixture} from "../test/hooks/Fixture";
 
 setDefaultTimeout(2 * 120000);
 export default class InventoryPage {

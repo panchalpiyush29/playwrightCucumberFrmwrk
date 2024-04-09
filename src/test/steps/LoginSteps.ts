@@ -1,7 +1,7 @@
 import {Given, setDefaultTimeout, Then, When} from "@cucumber/cucumber";
 import {expect} from "@playwright/test";
-import {fixture} from "../hooks/fixture";
-import LoginPage from "../../pages/loginPage";
+import {fixture} from "../hooks/Fixture";
+import LoginPage from "../../pages/LoginPage";
 
 const loginData = JSON.parse(JSON.stringify(require("../../helper/util/test-data/loginDetails.json")));
 
