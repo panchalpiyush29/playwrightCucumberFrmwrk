@@ -5,9 +5,6 @@ import {fixture} from "../test/hooks/fixture";
 setDefaultTimeout(2 * 120000);
 export default class InventoryPage {
 
-    constructor(private page: Page) {
-    };
-
     shoppingCartIcon: Locator = fixture.page.locator('#shopping_cart_container a');
     sauceLabsBackpack: Locator = fixture.page.locator('[data-test="add-to-cart-sauce-labs-backpack"]');
     sauceLabsBikeLight: Locator = fixture.page.locator('[data-test="add-to-cart-sauce-labs-bike-light"]');
@@ -18,6 +15,9 @@ export default class InventoryPage {
     shoppingCartLink: Locator = fixture.page.locator('a').filter({hasText: '1'});
     productName: Locator = fixture.page.locator('.inventory_item_name');
     checkoutButton: Locator = fixture.page.locator('[data-test="checkout"]');
+
+    constructor(private page: Page) {
+    };
 
     async shoppingCartIconToBeDisplayed() {
         await fixture.page.waitForLoadState();

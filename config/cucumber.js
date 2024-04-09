@@ -11,6 +11,7 @@ module.exports = {
         dryRun: false,
         require: [
             "src/test/steps/*.ts",
+            "src/test/steps/api/*.ts",
             "src/test/hooks/hooks.ts"
         ],
         requireModule: [

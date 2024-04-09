@@ -1,9 +1,9 @@
+@smoke @regression @e2e
 Feature: Buy all products offered in the sauce demo website
 
   Background:
     Given user navigates to saucedemo website
 
-  @smoke @regression @e2e
   Scenario Outline: users can buy a product from sauce demo website
     Given I am a standard user who is logged in
     And I choose to buy a "<product>" after reviewing the "<price>"

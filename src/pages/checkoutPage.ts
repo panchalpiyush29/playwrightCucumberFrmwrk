@@ -6,15 +6,16 @@ import {faker} from "@faker-js/faker";
 setDefaultTimeout(2 * 120000);
 export default class CheckoutPage {
 
-    constructor(private page: Page) {
-    }
-
     firstName: Locator = fixture.page.locator('[data-test="firstName"]');
     lastName: Locator = fixture.page.locator('[data-test="lastName"]');
     postalCode: Locator = fixture.page.locator('[data-test="postalCode"]');
     continueButton: Locator = fixture.page.locator('[data-test="continue"]');
     productName: Locator = fixture.page.locator('.inventory_item_name');
     finishButton: Locator = fixture.page.locator('[data-test="finish"]');
+
+    constructor(private page: Page) {
+    }
+
 
     async enterYourInformation() {
         await this.firstName.fill(faker.person.firstName());

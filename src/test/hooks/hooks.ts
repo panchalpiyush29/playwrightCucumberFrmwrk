@@ -19,7 +19,7 @@ Before(async function ({pickle}) {
 
     apiContext = await request.newContext({
         baseURL: process.env.BASE_URL_API
-    })
+    });
 
     const scenarioName = pickle.name + pickle.id;
     browserContext = await browser.newContext({
@@ -28,21 +28,14 @@ Before(async function ({pickle}) {
         },
     });
 
-    //code to generate trace
-/*    await browserContext.tracing.start({
-        name: scenarioName,
-        title: pickle.name,
-        sources: true,
-        screenshots: true, snapshots: true
-    })*/
     fixture.page = await browserContext.newPage();
+    fixture.api = apiContext;
     fixture.logger = createLogger(options(scenarioName));
 });
 
 After(async function ({pickle, result}) {
     let videoPath: string;
     let img: Buffer;
-    //const path = `./test-results/trace/${pickle.id}.zip`;
     console.log(pickle.name, "--->", result?.status);
     if (result?.status == Status.FAILED) {
         img = await fixture.page.screenshot(
@@ -50,13 +43,11 @@ After(async function ({pickle, result}) {
         videoPath = await fixture.page.video().path();
     }
 
-    //await browserContext.tracing.stop({path: path});
     await fixture.page.close();
     await browserContext.close();
 
     if (result?.status == Status.FAILED) {
         this.attach(img, "image/png");
-        //this.attach(videoPath, 'video/webm');
     }
 });
 
