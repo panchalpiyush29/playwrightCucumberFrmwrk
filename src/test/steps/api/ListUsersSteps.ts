@@ -1,7 +1,9 @@
-import {Given, Then} from "@cucumber/cucumber";
+import {Given, setDefaultTimeout, Then} from "@cucumber/cucumber";
 import ListUsersPage from "../../../pages/api/ListUsersPage";
 
+setDefaultTimeout(60000);
 const listUsersPage = new ListUsersPage();
+
 Given(/^I fetch user details$/, async function () {
     await listUsersPage.getUserDetails();
 });

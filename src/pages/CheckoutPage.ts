@@ -1,10 +1,10 @@
-import {expect, Locator, Page} from "@playwright/test";
-import {setDefaultTimeout} from "@cucumber/cucumber";
+import {Locator, Page} from "@playwright/test";
 import {fixture} from "../test/hooks/Fixture";
 import {faker} from "@faker-js/faker";
+import SkinnyPage from "./SkinnyPage";
 
-setDefaultTimeout(2 * 120000);
-export default class CheckoutPage {
+
+export default class CheckoutPage extends SkinnyPage {
 
     firstName: Locator = fixture.page.locator('[data-test="firstName"]');
     lastName: Locator = fixture.page.locator('[data-test="lastName"]');
@@ -14,8 +14,8 @@ export default class CheckoutPage {
     finishButton: Locator = fixture.page.locator('[data-test="finish"]');
 
     constructor(private page: Page) {
+        super();
     }
-
 
     async enterYourInformation() {
         await this.firstName.fill(faker.person.firstName());
@@ -31,14 +31,14 @@ export default class CheckoutPage {
         await this.finishButton.click();
     }
 
-    async verifySuccessMessage() {
+    async verifySuccessMessage(successMessage: string) {
         await fixture.page.waitForLoadState();
-        expect(fixture.page.getByText('Thank you for your order!')).toBeTruthy();
+        await this.validateTextToBeTruthy(fixture.page, successMessage);
     }
 
     async verifyProductAndPrice(product: string, price: string) {
-        await expect(this.productName).toContainText(product);
-        expect(fixture.page.getByText(price)).toBeTruthy();
+        await this.validateText(this.productName, product);
+        await this.validateTextToBeTruthy(fixture.page, price);
     }
 }
 

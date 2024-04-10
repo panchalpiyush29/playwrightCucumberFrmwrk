@@ -1,4 +1,4 @@
-import {After, AfterAll, Before, BeforeAll, Status} from "@cucumber/cucumber";
+import {After, AfterAll, Before, BeforeAll, setDefaultTimeout, Status} from "@cucumber/cucumber";
 import {APIRequestContext, Browser, BrowserContext, request} from "@playwright/test";
 import {fixture} from "./Fixture";
 import {invokeBrowser} from "../../helper/browsers/browserManager";
@@ -66,7 +66,7 @@ async function setBrowserProperties() {
         permissions: ['geolocation'],
         recordVideo: {
             dir: "test-results/videos",
-        }
+        },
     });
 }
 

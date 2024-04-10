@@ -1,17 +1,16 @@
 import {Locator, Page} from "@playwright/test";
 import {fixture} from "../test/hooks/Fixture";
-import {setDefaultTimeout} from "@cucumber/cucumber";
+import SkinnyPage from "./SkinnyPage";
 
-setDefaultTimeout(2 * 120000);
-export default class LoginPage {
+export default class LoginPage extends SkinnyPage {
     txtUsername: Locator = fixture.page.locator('[data-test="username"]');
     txtPassword: Locator = fixture.page.locator('[data-test="password"]');
     bntLogin: Locator = fixture.page.locator('[data-test="login-button"]');
     errMessage: Locator = fixture.page.locator('[data-test="error"]');
 
     constructor(private page: Page) {
+        super();
     }
-
 
     async navigateToLoginPage() {
         await fixture.page.goto(process.env.BASEURL);
@@ -26,5 +25,8 @@ export default class LoginPage {
     async clickLogin() {
         await this.bntLogin.click();
     }
-}
 
+    async validateErrorMessage(errorMessage: string) {
+        await this.validateText(this.errMessage, errorMessage);
+    }
+}

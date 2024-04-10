@@ -6,7 +6,8 @@ declare global {
             BROWSER: "chrome" | "firefox" | "webkit"
             ENV: "staging" | "test"
             BASEURL: string,
-            HEAD: "true" | "false"
+            HEAD: "true" | "false",
+            TIMEOUT: number,
         }
     }
 }

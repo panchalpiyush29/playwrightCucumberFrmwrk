@@ -9,7 +9,7 @@ Feature: Buy all products offered in the sauce demo website
     And I choose to buy a "<product>" after reviewing the "<price>"
     And I enter checkout information
     When I submit my order after verifying the "<product>" and its "<price>"
-    Then I can see the success page
+    Then I can see the success page "Thank you for your order!"
     Examples:
       | product                           | price  |
       | Sauce Labs Backpack               | $29.99 |

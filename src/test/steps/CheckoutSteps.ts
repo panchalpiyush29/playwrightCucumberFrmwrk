@@ -2,8 +2,9 @@ import {Given, setDefaultTimeout, Then, When} from "@cucumber/cucumber";
 import {fixture} from "../hooks/Fixture";
 import CheckoutPage from "../../pages/CheckoutPage";
 
-setDefaultTimeout(2 * 120000);
+setDefaultTimeout(60000);
 let checkoutPage: CheckoutPage;
+
 Given(/^I enter checkout information$/, async () => {
     checkoutPage = new CheckoutPage(fixture.page);
     await fixture.page.waitForLoadState();
@@ -12,17 +13,17 @@ Given(/^I enter checkout information$/, async () => {
 });
 
 When(/^I submit my order$/, async () => {
-    //checkoutPage = new CheckoutPage(fixture.page);
     await checkoutPage.clickFinish();
 });
 
-Then(/^I can see the success page$/, async () => {
-    //checkoutPage = new CheckoutPage(fixture.page);
-    await checkoutPage.verifySuccessMessage();
+Then(/^I can see the success page$/, async (successMessage) => {
+    await checkoutPage.verifySuccessMessage(successMessage);
 });
 
 When(/^I submit my order after verifying the "([^"]*)" and its "([^"]*)"$/, async function (product, price) {
-    //checkoutPage = new CheckoutPage(fixture.page);
     await checkoutPage.verifyProductAndPrice(product, price);
     await checkoutPage.clickFinish();
+});
+Then(/^I can see the success page "([^"]*)"$/, async function (successMessage) {
+    await checkoutPage.verifySuccessMessage(successMessage);
 });
