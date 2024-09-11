@@ -14,7 +14,7 @@
   "devDependencies": {
     "@cucumber/cucumber": "^10.3.1",
     "@faker-js/faker": "^8.4.1",
-    "@playwright/test": "^1.42.1",
+    "@playwright/test": "^1.46.0",
     "@types/node": "^20.11.24",
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.5",

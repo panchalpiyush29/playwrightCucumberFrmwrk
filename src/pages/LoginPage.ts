@@ -1,8 +1,8 @@
 import {Locator, Page} from "@playwright/test";
 import {fixture} from "../test/hooks/Fixture";
-import SkinnyPage from "./SkinnyPage";
+import BasePage from "./BasePage";
 
-export default class LoginPage extends SkinnyPage {
+export default class LoginPage extends BasePage {
     txtUsername: Locator = fixture.page.locator('[data-test="username"]');
     txtPassword: Locator = fixture.page.locator('[data-test="password"]');
     bntLogin: Locator = fixture.page.locator('[data-test="login-button"]');

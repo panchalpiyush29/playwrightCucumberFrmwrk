@@ -1,7 +1,7 @@
 import {expect, Locator, Page} from "@playwright/test";
 
 const timeout = 20000;
-export default class SkinnyPage {
+export default class BasePage {
 
     async validateText(locator: any, text: string) {
         await expect(locator).toContainText(text, {timeout});

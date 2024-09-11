@@ -1,10 +1,10 @@
 import {Locator, Page} from "@playwright/test";
 import {fixture} from "../test/hooks/Fixture";
 import {faker} from "@faker-js/faker";
-import SkinnyPage from "./SkinnyPage";
+import BasePage from "./BasePage";
 
 
-export default class CheckoutPage extends SkinnyPage {
+export default class CheckoutPage extends BasePage {
 
     firstName: Locator = fixture.page.locator('[data-test="firstName"]');
     lastName: Locator = fixture.page.locator('[data-test="lastName"]');
