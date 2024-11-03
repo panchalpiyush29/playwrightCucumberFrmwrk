@@ -1,5 +1,6 @@
 @smoke @regression
-Feature: User Authentication tests
+Feature: Login functionality
+  As a user I want to be able to login so that I can access my account
 
   Background:
     Given user navigates to saucedemo website

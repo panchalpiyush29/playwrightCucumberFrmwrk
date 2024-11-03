@@ -1,5 +1,7 @@
 @smoke @regression @e2e
-Feature: Buy all products offered in the sauce demo website
+Feature: Product purchase
+  As a customer
+  I want to buy a product from saucedemo website
 
   Background:
     Given user navigates to saucedemo website
